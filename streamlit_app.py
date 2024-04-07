@@ -2,6 +2,7 @@ import json
 from json import decoder
 import streamlit as st
 import streamlit.components.v1 as com
+from streamlit_lottie import st_lottie
 from streamlit_extras.stylable_container import stylable_container
 from decoder import caesar_cipher
 from decoder import vigenere_cipher
@@ -97,10 +98,10 @@ with st.form("encryption_form"):
 
         row1 = st.columns([3,2])
         cipher_type=row1[0].selectbox('Select your cipher',['Caesar\'s Cipher', 'Vigenère\'s Cipher'])
-        encrypt_or_decrypt=row1[1].radio('Pick conversion type', ['Decrypt','Encrypt'])
+        encrypt_or_decrypt=row2[0].radio('Pick conversion type', ['Decrypt','Encrypt'])
 
         row2 = st.columns([3,2])
-        offset=row2[0].slider('Select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
+        offset=row1[1].slider('Select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
         keyword=row2[1].text_input('Enter Keyword', placeholder='Enter keyword', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
 
         row3 = st.columns([3])
