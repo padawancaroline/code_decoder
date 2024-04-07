@@ -15,13 +15,6 @@ keyword = ''                        # string
 offset = ''                         # string
 output_message = ''                 # string
 
-# app color
-primaryColor="#F63366"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor="#F0F2F6"
-textColor="##52697a"
-font="monospace"
-
 # lottie animation 
 with stylable_container(
     key = 'hero',
@@ -31,7 +24,7 @@ with stylable_container(
         background: linear-gradient(315deg, #4f2991 3%, #7dc4ff 38%, #36cfcc 68%, #a92ed3 98%);
         border-radius: 20px;
         padding: 20px;
-        box-shadow: 2px 3px #888888;
+        box-shadow: 2px 3px 10px #393B3B;
         }
     """
 ): 
@@ -65,7 +58,6 @@ with stylable_container(
             css_styles="""
             {
                 font-size:40px;
-                font-color: white;
                 border-raduis: 2em;
                 padding: 10px;
                 float: center;
