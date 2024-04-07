@@ -17,6 +17,13 @@ output_message = ''                 # string
 offset_incremental = 1              #integer
 keyword_input = ''
 
+# app color
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="##52697a"
+font="monospace"
+
 # lottie animation 
 with stylable_container(
     key = 'hero',
