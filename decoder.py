@@ -84,12 +84,14 @@ def result(cipher_type, encrypt_or_decrypt, message, keyword, offset):
     if cipher_type == 'Vigenère\'s Cipher':
             if encrypt_or_decrypt == 'Decrypt':
                 output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
-                print('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
-                print('Decrypted message: ' + output_message)
+                return 1
+                #print('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
+                #print('Decrypted message: ' + output_message)
             elif encrypt_or_decrypt == 'Encrypt':
                 output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
-                print('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                print('Encrypted message: ' + output_message)
+                return 2
+                #print('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+                #print('Encrypted message: ' + output_message)
             else:
                 print('Please make sure you correctly entered the cypher parameters.')
     elif cipher_type == 'Caesar\'s Cipher':
@@ -111,4 +113,4 @@ def result(cipher_type, encrypt_or_decrypt, message, keyword, offset):
             print('Please make sure you correctly entered the cypher parameters.')
     else:
         print('Please make sure you correctly entered the cypher parameters.')
-    return  string(result)
+    return  

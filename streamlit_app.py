@@ -2,7 +2,6 @@ import json
 from json import decoder
 import streamlit as st
 import streamlit.components.v1 as com
-from streamlit_lottie import st_lottie
 from streamlit_extras.stylable_container import stylable_container
 from decoder import caesar_cipher
 from decoder import vigenere_cipher
