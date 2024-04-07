@@ -97,14 +97,14 @@ with st.form("encryption_form"):
         header[1].subheader('Enter your Key')
 
         row1 = st.columns([3,2])
+        row2 = st.columns([3,2])
+        row3 = st.columns([3])
         cipher_type=row1[0].selectbox('Select your cipher',['Caesar\'s Cipher', 'Vigenère\'s Cipher'])
         encrypt_or_decrypt=row2[0].radio('Pick conversion type', ['Decrypt','Encrypt'])
 
-        row2 = st.columns([3,2])
         offset=row1[1].slider('Select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
         keyword=row2[1].text_input('Enter Keyword', placeholder='Enter keyword', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
 
-        row3 = st.columns([3])
         message=row3[0].text_area('Add text you want to run through Cipher', placeholder='Enter your message here...',
         help='Text to encrypt or decrypt')
         submitted = st.form_submit_button("Submit")
