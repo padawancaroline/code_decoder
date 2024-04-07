@@ -41,17 +41,6 @@ with stylable_container(
         """
         ): 
             animation = com.iframe('https://lottie.host/embed/f08465c1-b91b-4f2f-8cb9-bbe83adcd8df/HHaPOIHhnN.json')
-        #below to display from file
-        #with open('animationlock.json') as file: 
-        #animation = json.load(file)
-
-        #st_lottie(animation,
-            #height=500, 
-            #width=500, 
-            #speed=1, 
-            #loop=True, 
-            #quality='high', 
-            #key='lock' )
 
     with col2:
         with stylable_container(
