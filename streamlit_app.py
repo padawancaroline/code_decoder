@@ -105,43 +105,44 @@ with st.form("encryption_form"):
         submitted = st.form_submit_button("Submit")
 if submitted:
     #st.write(caesar_cipher(encrypt_or_decrypt, message, offset))
-
-    if cipher_type == 'Vigenère\'s Cipher':
-        if keyword.strip():
+    if message.strip():
+        if cipher_type == 'Vigenère\'s Cipher':
+            if keyword.strip():
+                if encrypt_or_decrypt == 'Decrypt':
+                    output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
+                    st.write('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
+                    st.write('Decrypted message: ' + output_message)
+                elif encrypt_or_decrypt == 'Encrypt':
+                    output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
+                    st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+                    st.write('Decrypted message: ' + output_message)
+                else:
+                    st.write('Please make sure you correctly entered the cypher parameters.')
+            else: 
+                    st.write('Please make sure you specified a keyword.')
+        elif cipher_type == 'Caesar\'s Cipher':
             if encrypt_or_decrypt == 'Decrypt':
-                output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
-                st.write('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
-                st.write('Decrypted message: ' + output_message)
+                    if offset != 0:
+                        output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                        st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+                        st.write('Decrypted message: ' + output_message)
+                    elif offset == 0: 
+                        offset_incremental = 0
+                        st.write('Here are are all the offset variations we could find.') 
+                        for x in range(0,26):
+                            decoded_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                            st.write('Offset ' + str(offset) + ': ' + decoded_message)
+                            offset += 1
             elif encrypt_or_decrypt == 'Encrypt':
-                output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
+                output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
                 st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
                 st.write('Decrypted message: ' + output_message)
             else:
                 st.write('Please make sure you correctly entered the cypher parameters.')
-        else: 
-                st.write('Please make sure you specified a keyword.')
-    elif cipher_type == 'Caesar\'s Cipher':
-        if encrypt_or_decrypt == 'Decrypt':
-                if offset != 0:
-                    output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                    st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                    st.write('Decrypted message: ' + output_message)
-                elif offset == 0: 
-                    offset_incremental = 0
-                    st.write('Here are are all the offset variations we could find.') 
-                    for x in range(0,26):
-                        decoded_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                        st.write('Offset ' + str(offset) + ': ' + decoded_message)
-                        offset += 1
-        elif encrypt_or_decrypt == 'Encrypt':
-            output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-            st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-            st.write('Decrypted message: ' + output_message)
         else:
-            st.write('Please make sure you correctly entered the cypher parameters.')
-    else:
-        st.write('Please make sure you correctly entered the cypher parameters.')        
-        
+            st.write('Please make sure you correctly entered the cypher parameters.')    
+    else:    
+        st.write('Please make sure to type in the text you want to run through cipher.')
         
         
         
