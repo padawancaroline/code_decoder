@@ -1,8 +1,11 @@
 import json
+from json import decoder
 import streamlit as st
 import streamlit.components.v1 as com
 from streamlit_lottie import st_lottie
 from streamlit_extras.stylable_container import stylable_container
+from decoder import caesar_cipher
+from decoder import vigenere_cipher
 
 # Global variable name              # Type
 message = ''                        # string
@@ -11,6 +14,8 @@ encrypt_or_decrypt = ''             # string
 keyword = ''                        # string
 offset = ''                         # string
 output_message = ''                 # string
+offset_incremental = 1              #integer
+keyword_input = ''
 
 # lottie animation 
 with stylable_container(
@@ -86,45 +91,57 @@ with stylable_container(
         st.markdown('(noun) a secret or disguised way of writing; a code.')
 
 #select cipher and encryption type     
-col1, col2, col3 = st.columns([1,0.5,1])
-with col1:  
-    with stylable_container(
-        key = 'picker',
-        css_styles="""
-            {
-            font-size: 10px;
-            }
-                """
-    ):
-        st.subheader('Pick a Cipher')
-    cipher_type = st.selectbox('', 
-        ['Caesar\'s Cipher',
-        'Vigenère\'s Cipher'])
-with col3: 
-    with stylable_container(
-    key = 'picker',
-    css_styles="""
-        {
-            font-size: 10px;
-        }
-            """
-    ):
-        st.subheader('...and conversion type')
-        encrypt_or_decrypt = st.radio('', ['Decrypt','Encrypt'])
+with st.form("encryption_form"):
+        header = st.columns([3,2])
+        header[0].subheader('Pick a Cipher')
+        header[1].subheader('Enter your Key')
 
-#select cipher key  
-with st.form("encryption_form"):    
-    st.subheader('Enter your Key')
-    if cipher_type == 'Caesar\'s Cipher':
-        offset = st.slider('Select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched'
-            + ' (if unknown pick 0)',disabled=False)
-    elif cipher_type == 'Vigenère\'s Cipher':
-        keyword = st.text_input('Enter Keyword', placeholder='Placeholder goes here', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
-    message = st.text_area(
-        'Add text you want to run through Cipher',
-        placeholder='Placeholder goes here - Lorem Ipsum is simply dummy text of the printing and typesetting industry. \
-        Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to ',
+        row1 = st.columns([3,2])
+        cipher_type=row1[0].selectbox('Select your cipher',['Caesar\'s Cipher', 'Vigenère\'s Cipher'])
+        encrypt_or_decrypt=row1[1].radio('Pick conversion type', ['Decrypt','Encrypt'])
+
+        row2 = st.columns([3,2])
+        offset=row2[0].slider('Select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
+        keyword=row2[1].text_input('Enter Keyword', placeholder='Enter keyword', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
+
+        row3 = st.columns([3])
+        message=row3[0].text_area('Add text you want to run through Cipher', placeholder='Enter your message here...',
         help='Text to encrypt or decrypt')
-    submit = st.form_submit_button('Hit me')
+        submitted = st.form_submit_button("Submit")
+if submitted:
+    #st.write(caesar_cipher(encrypt_or_decrypt, message, offset))
 
-
+    if cipher_type == 'Vigenère\'s Cipher':
+        if encrypt_or_decrypt == 'Decrypt':
+            output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
+            st.write('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
+            st.write('Decrypted message: ' + output_message)
+        elif encrypt_or_decrypt == 'Encrypt':
+            output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
+            st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+            st.write('Decrypted message: ' + output_message)
+        else:
+            st.write('Please make sure you correctly entered the cypher parameters.')
+    elif cipher_type == 'Caesar\'s Cipher':
+        if encrypt_or_decrypt == 'Decrypt':
+                if offset != 0:
+                    output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                    st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+                    st.write('Decrypted message: ' + output_message)
+                elif offset == 0: 
+                    for x in range(1,26):
+                        output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                        offset_incremental += 1
+                        st.write('Offset = ' + str(offset_incremental) + ': ' + output_message)
+        elif encrypt_or_decrypt == 'Encrypt':
+            output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+            st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+            st.write('Decrypted message: ' + output_message)
+        else:
+            st.write('Please make sure you correctly entered the cypher parameters.')
+    else:
+        st.write('Please make sure you correctly entered the cypher parameters.')        
+        
+        
+        
+        
