@@ -115,7 +115,7 @@ if submitted:
                 elif encrypt_or_decrypt == 'Encrypt':
                     output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
                     st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                    st.write('Decrypted message: ' + output_message)
+                    st.write('Encrypted message: ' + output_message)
                 else:
                     st.write('Please make sure you correctly entered the cypher parameters.')
             else: 
@@ -136,7 +136,7 @@ if submitted:
             elif encrypt_or_decrypt == 'Encrypt':
                 output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
                 st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                st.write('Decrypted message: ' + output_message)
+                st.write('Encrypted message: ' + output_message)
             else:
                 st.write('Please make sure you correctly entered the cypher parameters.')
         else:
