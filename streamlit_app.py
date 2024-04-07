@@ -98,7 +98,7 @@ with st.form("encryption_form"):
         offset=row2[0].slider('If Caesar\'s Cipher select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
         
         encrypt_or_decrypt=row1[1].radio('Pick conversion type', ['Decrypt','Encrypt'])
-        keyword=row2[1].text_input('If Vigenère\'s Cipher enter keyword', placeholder='keyword', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
+        keyword=row2[1].text_input('If Vigenère\'s Cipher enter keyword', placeholder='Enter in lowercase', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use',disabled=False)
 
         message=row3[0].text_area('Add text you want to run through Cipher', placeholder='Enter your message here...',
         help='Text to encrypt or decrypt')
