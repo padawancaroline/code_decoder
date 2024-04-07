@@ -25,7 +25,7 @@ with stylable_container(
         background: linear-gradient(315deg, #4f2991 3%, #7dc4ff 38%, #36cfcc 68%, #a92ed3 98%);
         border-radius: 20px;
         padding: 20px;
-        box-shadow: 2px 3px #888888;
+        box-shadow: 2px 3px #3D3838;
         }
     """
 ): 

@@ -10,9 +10,6 @@ cipher_type = ''                    # string
 encrypt_or_decrypt = ''             # string
 keyword = ''                        # string
 offset = ''                         # string
-output_message = ''                 # string
-offset_incremental = 1              #integer
-
 #define alphabet
 import string
 alphabet = string.ascii_lowercase
@@ -46,7 +43,7 @@ def vigenere_cipher(encrypt_or_decrypt, message, keyword):
             if encrypt_or_decrypt == 'Decrypt':
                 output_message_v += alphabet[(character_index + keyword_offset_index) % 26]
             # Encryption
-            elif encrypt_or_decrypt == 'e':
+            elif encrypt_or_decrypt == 'Encrypt':
                 output_message_v += alphabet[(character_index - keyword_offset_index) % 26]
         else:
             output_message_v += message[i]
@@ -56,8 +53,6 @@ def caesar_cipher(encrypt_or_decrypt, message, offset):
     #function variables
     output_message_c = ''
     message_lower = message.lower()
-    
-    
     # Cipher logic
     #if character is a letter, decode by finding decoded letter position
     for character in message_lower:
@@ -65,13 +60,8 @@ def caesar_cipher(encrypt_or_decrypt, message, offset):
             character_index = alphabet.find(character)
             # Decryption
             if encrypt_or_decrypt == 'Decrypt':
-                if offset != 0:
-                    character_index = alphabet.find(character)
-                    output_message_c += alphabet[(character_index + offset) % 26]
-                elif offset == 0:
-                    output_message_c += alphabet[(character_index + (offset_incremental)) % 26]
-                else: 
-                    output_message_c += character
+                character_index = alphabet.find(character)
+                output_message_c += alphabet[(character_index + offset) % 26]
                 # Encryption
             elif encrypt_or_decrypt == 'Encrypt':
                 output_message_c += alphabet[(character_index - offset) % 26]
@@ -79,38 +69,3 @@ def caesar_cipher(encrypt_or_decrypt, message, offset):
         else: 
             output_message_c += character
     return output_message_c
-
-def result(cipher_type, encrypt_or_decrypt, message, keyword, offset):
-    if cipher_type == 'Vigenère\'s Cipher':
-            if encrypt_or_decrypt == 'Decrypt':
-                output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
-                return 1
-                #print('Yay! Secret message cracked! Let\'s encrypt your response if you are ready.')
-                #print('Decrypted message: ' + output_message)
-            elif encrypt_or_decrypt == 'Encrypt':
-                output_message = vigenere_cipher(encrypt_or_decrypt, message, keyword)
-                return 2
-                #print('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                #print('Encrypted message: ' + output_message)
-            else:
-                print('Please make sure you correctly entered the cypher parameters.')
-    elif cipher_type == 'Caesar\'s Cipher':
-        if encrypt_or_decrypt == 'Decrypt':
-                if offset != 0:
-                    output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                    print('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                    print('Decrypted message: ' + output_message)
-                elif offset == 0: 
-                    for x in range(1,26):
-                        output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                        offset_incremental += 1
-                        print('Offset = ' + str(offset_incremental) + ': ' + output_message)
-        elif encrypt_or_decrypt == 'Encrypt':
-            output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-            print('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-            print('Encrypted message: '+ output_message)
-        else:
-            print('Please make sure you correctly entered the cypher parameters.')
-    else:
-        print('Please make sure you correctly entered the cypher parameters.')
-    return  
