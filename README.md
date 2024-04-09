@@ -25,7 +25,7 @@ To set up CipherFun locally, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Install the required dependencies using `pip install -r requirements.txt`.
-3. Run the application by executing `streamlit run app.py` in your terminal.
+3. Run the application by executing `streamlit run streamlit_app.py` in your terminal.
 
 ## Usage
 
