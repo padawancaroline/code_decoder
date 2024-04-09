@@ -4,8 +4,7 @@ import streamlit as st
 import streamlit.components.v1 as com
 from streamlit_lottie import st_lottie
 from streamlit_extras.stylable_container import stylable_container
-from decoder import caesar_cipher
-from decoder import vigenere_cipher
+from decoder import caesar_cipher, vigenere_cipher
 
 # Global variable name              # Type
 message = ''                        # string
@@ -88,23 +87,29 @@ with stylable_container(
         st.markdown('(noun) a secret or disguised way of writing; a code.')
 
 #select cipher and encryption type     
-with st.form("encryption_form"):
-        header = st.columns([3,2])
-        row1 = st.columns([3,2])
-        row2 = st.columns([3,2])
-        row3 = st.columns([3])
+#with st.form("encryption_form"):
+header = st.columns([3, 2])
+row1 = st.columns([3, 2])
+row2 = st.columns([3, 2])
+row3 = st.columns([3])
 
-        cipher_type=row1[0].selectbox('Select your cipher',['Caesar\'s Cipher', 'Vigenère\'s Cipher'])
-        offset=row2[0].slider('If Caesar\'s Cipher select offset',0, 26,10, help='Offset is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)',disabled=False)
-        
-        encrypt_or_decrypt=row1[1].radio('Pick conversion type', ['Decrypt','Encrypt'])
-        keyword=row2[1].text_input('If Vigenère\'s Cipher enter keyword', placeholder='keyword', help='Vigenère\'s cipher uses a keyword to determine the offset value it will use.',disabled=False)
+message = st.text_area('Type the message you want CipherFun to encrypt or decrypt', placeholder='Enter your message here... \n e.g. Hi Friend, I\'ve been having fun encrypting my message with CipherFun ', help='Text for CipherFun to encrypt or decrypt.')
+encrypt_or_decrypt=st.radio('Pick conversion type', ['Decrypt','Encrypt'])
+cipher_type = st.selectbox('Select the cipher method to use', ['Caesar\'s Cipher', 'Vigenère\'s Cipher'])
 
-        message=row3[0].text_area('Add text you want to run through Cipher', placeholder='Enter your message here...',
-        help='Text to encrypt or decrypt')
-        submitted = st.form_submit_button("Submit")
-if submitted:
-    #st.write(caesar_cipher(encrypt_or_decrypt, message, offset))
+if cipher_type == "Vigenère\'s Cipher":
+    keyword = st.text_input('Enter keyword', placeholder='e.g.fun, friends, cat', help='Vigenère\'s cipher uses a keyword to determine the shift value it will use.')
+else:
+    keyword = ''
+
+if cipher_type == "Caesar\'s Cipher":
+    offset = st.slider('Select shift/key number', 0, 26, 10, help='Shift/key number is what Caesar\'s Cipher takes to define the distance between the character that will be switched (if unknown pick 0)', disabled=False)
+else:
+    offset = ''
+
+submit = st.button("Submit")
+
+if submit:
     if message.strip():
         if cipher_type == 'Vigenère\'s Cipher':
             if keyword.strip():
@@ -119,20 +124,20 @@ if submitted:
                 else:
                     st.write('Please make sure you correctly entered the cypher parameters.')
             else: 
-                    st.write('Please make sure you specified a keyword.')
+                st.write('Please make sure you specified a keyword.')
         elif cipher_type == 'Caesar\'s Cipher':
             if encrypt_or_decrypt == 'Decrypt':
-                    if offset != 0:
-                        output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                        st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
-                        st.write('Decrypted message: ' + output_message)
-                    elif offset == 0: 
-                        offset_incremental = 0
-                        st.write('Here are are all the offset variations we could find.') 
-                        for x in range(0,26):
-                            decoded_message = caesar_cipher(encrypt_or_decrypt, message, offset)
-                            st.write('Offset ' + str(offset) + ': ' + decoded_message)
-                            offset += 1
+                if offset != 0:
+                    output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                    st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
+                    st.write('Decrypted message: ' + output_message)
+                elif offset == 0:
+                    offset_incremental = 0
+                    st.write('Here are are all the offset variations we could find.')
+                    for x in range(0, 26):
+                        decoded_message = caesar_cipher(encrypt_or_decrypt, message, offset)
+                        st.write('Offset ' + str(offset) + ': ' + decoded_message)
+                        offset += 1
             elif encrypt_or_decrypt == 'Encrypt':
                 output_message = caesar_cipher(encrypt_or_decrypt, message, offset)
                 st.write('Yay! Secret message encrypted! Don\'t forget to share the offset or keyword value with your fellow spy!')
@@ -140,9 +145,9 @@ if submitted:
             else:
                 st.write('Please make sure you correctly entered the cypher parameters.')
         else:
-            st.write('Please make sure you correctly entered the cypher parameters.')    
-    else:    
+            st.write('Please make sure you correctly entered the cypher parameters.')
+    else:
         st.write('Please make sure to type in the text you want to run through cipher.')
-        
+    
         
         
