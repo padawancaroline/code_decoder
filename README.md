@@ -17,7 +17,7 @@ CipherFun provides a user-friendly interface for encoding and decoding messages 
 
 - **Easy-to-Use Interface**: CipherFun comes with a simple web interface built using Streamlit, allowing users to interactively input messages and select encryption or decryption options.
 - **Support for Multiple Ciphers**: Users can choose between Caesar's Cipher and Vigenère's Cipher based on their preferences and requirements.
-- **Real-Time Feedback**: The application provides real-time feedback, displaying the encrypted or decrypted message immediately after user input.
+- **Real-Time Feedback**: The application provides real-time feedback, displaying the encrypted or decrypted message immediately after user submit input.
 
 ## Setup
 
