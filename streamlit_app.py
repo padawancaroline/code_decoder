@@ -33,8 +33,7 @@ with stylable_container(
         key = 'img',
         css_styles="""
         {
-            height:500;
-            width:500; 
+
         }
         """
         ): 
