@@ -33,12 +33,12 @@ with stylable_container(
         key = 'img',
         css_styles="""
         {
-            height=500, 
-            width=500, 
+            height:500;
+            width:500; 
         }
         """
         ): 
-            animation = com.iframe('https://lottie.host/embed/f08465c1-b91b-4f2f-8cb9-bbe83adcd8df/HHaPOIHhnN.json')
+            animation = com.iframe('https://lottie.host/embed/e804d59b-2d2c-4992-8926-1e71e867ec24/c6ROqey5rT.json')
         #below to display from file
         #with open('animationlock.json') as file: 
         #animation = json.load(file)
